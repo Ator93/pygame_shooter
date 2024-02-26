@@ -21,7 +21,7 @@ class ShooterGame:
 
             # Make the most recently drawn screen visible
             pygame.display.flip()
-            self.clock.ticks(60)
+            self.clock.tick(60)
 
 
 if __name__ == "__main__":
