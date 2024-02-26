@@ -1,4 +1,5 @@
 import pygame, sys
+from settings import Settings
 
 class ShooterGame:
     """ Overall class to manage game assets and behavior """
@@ -8,7 +9,9 @@ class ShooterGame:
         pygame.init()
 
         self.clock = pygame.time.Clock()
-        self.screen = pygame.display.set_mode((1200, 800))
+        # Create a settings object
+        self.settings = Settings()
+        self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption("Shooter Game")
 
     def run_game(self):
@@ -19,6 +22,9 @@ class ShooterGame:
                 if event.type == pygame.QUIT:
                     sys.exit()
 
+            # Redraw the screen during each pass through the loop
+            self.screen.fill(self.settings.bg_color)
+            
             # Make the most recently drawn screen visible
             pygame.display.flip()
             self.clock.tick(60)
