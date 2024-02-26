@@ -7,6 +7,7 @@ class ShooterGame:
         """Initialize the game and create game resources. """
         pygame.init()
 
+        self.clock = pygame.time.Clock()
         self.screen = pygame.display.set_mode((1200, 800))
         pygame.display.set_caption("Shooter Game")
 
@@ -20,6 +21,7 @@ class ShooterGame:
 
             # Make the most recently drawn screen visible
             pygame.display.flip()
+            self.clock.ticks(60)
 
 
 if __name__ == "__main__":
