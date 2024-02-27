@@ -10,7 +10,7 @@ class Ship:
         self.settings = sg_game.settings
 
         # Load the ship image and get its rect.
-        self.image = pygame.image.load("images/space_craft_remove_bg_2.png")
+        self.image = pygame.image.load("images/shipx_blue_resized.png")
         self.rect = self.image.get_rect()
 
         # Start each new ship at the bottom center of the screen
