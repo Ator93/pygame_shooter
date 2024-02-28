@@ -1,6 +1,7 @@
 import pygame, sys
 from settings import Settings
 from ship import Ship
+from bullet import Bullet
 
 class ShooterGame:
     """ Overall class to manage game assets and behavior """
@@ -17,6 +18,9 @@ class ShooterGame:
 
         # Create a ship object
         self.ship = Ship(self)
+        
+        # Bullet object with sprites
+        self.bullets = pygame.sprite.Group()
 
     def run_game(self):
         """Start the main loop for the game. """
@@ -24,6 +28,8 @@ class ShooterGame:
             # Check for keyboard and mouse events.
             self._check_events()
             self.ship.update()
+            self.bullets.update()
+            self._update_bullets()
             self._update_screen()
             self.clock.tick(60)
 
@@ -46,6 +52,15 @@ class ShooterGame:
             self.ship.moving_left = True
         elif event.key == pygame.K_q:
             sys.exit()
+        elif event.key == pygame.K_SPACE:
+            self._fire_bullet()
+            
+            
+    def _fire_bullet(self):
+        """ Create a new bullet and add it it the bullets group """
+        if len(self.bullets) < self.settings.bullets_allowed:
+            new_bullet = Bullet(self)
+            self.bullets.add(new_bullet) 
             
             
     def _check_keyup_events(self, event):
@@ -57,9 +72,22 @@ class ShooterGame:
         
         
     
+    def _update_bullets(self):
+        """ Update posistion of bullets and get rid of old bullets. """
+        # Update bullet positions.
+        self.bullets.update()
+        
+        # Get rid of bullets that have disappeared
+        for bullet in self.bullets.copy():
+            if bullet.rect.bottom <=0:
+                self.bullets.remove(bullet)
+                
+                
     def _update_screen(self):
         """ Update images on the screen, and flip to the new screen. """
         self.screen.fill(self.settings.bg_color)
+        for bullet in self.bullets.sprites():
+            bullet.draw_bullet()
         self.ship.blitme()
         pygame.display.flip()
 
