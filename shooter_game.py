@@ -50,6 +50,10 @@ class ShooterGame:
             self.ship.moving_right = True
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = True
+        elif event.key == pygame.K_UP:
+            self.ship.moving_up = True
+        elif event.key == pygame.K_DOWN:
+            self.ship.moving_down = True
         elif event.key == pygame.K_q:
             sys.exit()
         elif event.key == pygame.K_SPACE:
@@ -69,6 +73,10 @@ class ShooterGame:
             self.ship.moving_right = False
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = False
+        elif event.key == pygame.K_UP:
+            self.ship.moving_up = False
+        elif event.key == pygame.K_DOWN:
+            self.ship.moving_down = False
         
         
     
@@ -79,7 +87,7 @@ class ShooterGame:
         
         # Get rid of bullets that have disappeared
         for bullet in self.bullets.copy():
-            if bullet.rect.bottom <=0:
+            if bullet.rect.right <=0 or bullet.rect.left >= self.settings.screen_width:
                 self.bullets.remove(bullet)
                 
                 
