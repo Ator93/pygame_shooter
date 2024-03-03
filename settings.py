@@ -17,3 +17,8 @@ class Settings:
         self.bullet_height = 3
         self.bullet_color = (60, 60, 60)
         self.bullets_allowed = 15
+        
+        # Automatic firing interval (in milliseconds)
+        self.autofire_interval = 500
+        
+        

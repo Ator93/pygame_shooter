@@ -21,6 +21,9 @@ class ShooterGame:
         
         # Bullet object with sprites
         self.bullets = pygame.sprite.Group()
+        
+        # Automatic firing timer
+        self.autofire_timer = pygame.time.get_ticks()
 
     def run_game(self):
         """Start the main loop for the game. """
@@ -37,12 +40,18 @@ class ShooterGame:
         """ Respond to key presses and mouse movements """
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                sys.exit()
+                sys.exit()          
             elif event.type == pygame.KEYDOWN:
                 self._check_keydown_events(event)
                     
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
+                
+        # Check for automatic firing based on time
+        current_time = pygame.time.get_ticks()
+        if current_time - self.autofire_timer >= self.settings.autofire_interval:
+            self._fire_bullet()
+            self.autofire_timer = current_time       
 
     def _check_keydown_events(self, event):
         """Respond to key presses"""
