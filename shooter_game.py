@@ -2,6 +2,7 @@ import pygame, sys
 from settings import Settings
 from ship import Ship
 from bullet import Bullet
+from alien import Alien
 
 class ShooterGame:
     """ Overall class to manage game assets and behavior """
@@ -21,6 +22,11 @@ class ShooterGame:
         
         # Bullet object with sprites
         self.bullets = pygame.sprite.Group()
+        
+        # Alien Object
+        self.aliens = pygame.sprite.Group()
+        
+        self._create_fleet()
 
     def run_game(self):
         """Start the main loop for the game. """
@@ -73,7 +79,7 @@ class ShooterGame:
         
     
     def _update_bullets(self):
-        """ Update posistion of bullets and get rid of old bullets. """
+        """ Update position of bullets and get rid of old bullets. """
         # Update bullet positions.
         self.bullets.update()
         
@@ -89,7 +95,15 @@ class ShooterGame:
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
         self.ship.blitme()
+        self.aliens.draw(self.screen)
         pygame.display.flip()
+
+        
+    def _create_fleet(self):
+        """ Create a fleet of aliens. """
+        # Make an alien.
+        alien = Alien(self)
+        self.aliens.add(alien)
 
 
 if __name__ == "__main__":
