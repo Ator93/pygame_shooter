@@ -1,0 +1,10 @@
+1. Add a single battleship to the top right corner of the screen with appropriate spacing around it.
+
+2. Fill the screen downwards from where the battleship appears vertically. Create additional columns of battle ships until we have a full fleet. Random battleships will periodically fire bullets that move slowly towards the player ship.
+
+3. Make the fleet move downwards and left until the entire fleet is shot down or if an alien reaches the leftmost corner, hits the user ship, or an alien ship bullet hits the user ship.
+
+    - If the entire fleet is shot down, create a new fleet.
+    - If an alien hits the ship or the leftmost corner of the screen, destroy the ship, and create a new fleet.
+
+4. Limit the number of ships the player can use and end the game when the player has used up the allotted number of ships.

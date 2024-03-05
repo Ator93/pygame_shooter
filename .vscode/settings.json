@@ -3,5 +3,6 @@
         "blit",
         "blitme",
         "midbottom"
-    ]
+    ],
+    "python.REPL.enableREPLSmartSend": false
 }

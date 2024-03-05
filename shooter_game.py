@@ -2,6 +2,7 @@ import pygame, sys
 from settings import Settings
 from ship import Ship
 from bullet import Bullet
+from enemy_ship import EnemyShip
 
 class ShooterGame:
     """ Overall class to manage game assets and behavior """
@@ -24,6 +25,11 @@ class ShooterGame:
         
         # Automatic firing timer
         self.autofire_timer = pygame.time.get_ticks()
+        
+        # Enemy Ship object with sprites
+        self.enemy_ships = pygame.sprite.Group()
+        
+        self._create_fleet()
 
     def run_game(self):
         """Start the main loop for the game. """
@@ -106,8 +112,30 @@ class ShooterGame:
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
         self.ship.blitme()
+        self.enemy_ships.draw(self.screen)
         pygame.display.flip()
+        
+    def _create_fleet(self):
+        """Create a fleet of battle ships"""
+        # Create enemy ships and keep adding enemy ships in a single column
+        # Spacing between the enemy ships is one ship height
+        enemy_ship = EnemyShip(self)
+        enemy_ship_height = enemy_ship.rect.height
 
+        # Start from the top-right corner
+        current_y, current_x = enemy_ship_height, self.settings.screen_width - enemy_ship.rect.width
+
+        while current_y <= (self.settings.screen_height - enemy_ship_height):
+            self._create_enemyship(current_y, current_x)
+            current_y += 2 * enemy_ship_height
+
+    def _create_enemyship(self, y_position, x_position):
+        """Create an enemy ship and place it in the column"""
+        new_enemy_ship = EnemyShip(self)
+        new_enemy_ship.y = y_position
+        new_enemy_ship.rect.y = y_position
+        new_enemy_ship.rect.x = x_position
+        self.enemy_ships.add(new_enemy_ship)
 
 if __name__ == "__main__":
     # Make a game instance, and run the game.
